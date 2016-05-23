@@ -11,4 +11,5 @@ authModule.config(AuthConfig);
 import AuthCtrl from './auth.controller';
 authModule.controller('AuthCtrl', AuthCtrl);
 
+
 export default authModule;

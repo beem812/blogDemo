@@ -40,14 +40,18 @@ export default class User {
   verifyAuth() {
     let deferred = this._$q.defer();
 
+    //returns false authentication if there is no JWT token
     if(!this._JWT.get()){
       deferred.resolve(false);
       return deferred.promise;
     }//end if
 
+    //resolves deferred to true if user information is present
     if (this.current){
       deferred.resolve(true);
     } else {
+      //if user information isnt present but a token is the server is
+      //checked for which user belongs to that token.
       this._$http({
         url: this._AppConstants.api + '/user',
         method: 'GET',
@@ -70,4 +74,21 @@ export default class User {
     }
     return deferred.promise;
   }//end verifyAuth
+
+  // This function will check if the user has the right permission to see the page
+  // they're on.
+  ensureAuthIs(bool){
+    let deferred = this._$q.defer();
+
+    this.verifyAuth().then(
+      (authValid)=>{
+      if(authValid !== bool){
+        //redirecting to home page
+        this._$state.go('app.home')
+      }else {
+        deferred.resolve(true);
+      }
+    });
+    return deferred.promise;
+  }
 }

@@ -12,6 +12,10 @@ function AppConfig($httpProvider, $stateProvider, $locationProvider, $urlRouterP
   */
   // $locationProvider.html5Mode(true);
 
+//every state change within the app will go through this state provider first
+//before proceeding to the specific page. This state provider also includes a
+//resolve function that checks the authentication of the user meaning that
+//the user identity will always be looked in to prior to showing new content.
   $stateProvider
   .state('app', {
     abstract: true,

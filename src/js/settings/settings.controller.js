@@ -1,0 +1,6 @@
+class SettingsCtrl{
+  constructor() {
+    'ngInject';
+    
+  }
+}
